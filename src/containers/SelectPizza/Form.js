@@ -3,8 +3,11 @@ import React from "react";
 import { Form, Statistic, Icon } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useMutation } from "@apollo/react-hooks";
 // @styles
 import { PriceContainer, MoneySymbol } from "./styles";
+// @queries
+import { START_ORDER } from "../../utilities/queries";
 
 let validationSchema = yup.object().shape({
   selectedPizzaSize: yup.number().required(),
@@ -12,6 +15,7 @@ let validationSchema = yup.object().shape({
 });
 
 const SelectPizzaForm = ({ pizza }) => {
+  const [startOrder] = useMutation(START_ORDER);
   const formik = useFormik({
     initialValues: {
       selectedPizzaSize: pizza.sizes[0].id,
@@ -20,6 +24,21 @@ const SelectPizzaForm = ({ pizza }) => {
     validationSchema,
     onSubmit(values) {
       console.log(values);
+      startOrder({
+        variables: {
+          cart: {
+            deliveryCost: 100,
+            total: 200,
+          },
+          cartItem: {
+            productId: 1,
+            productName: "p1",
+            sizeId: 2,
+            sizeDescription: "d 1",
+            quantity: 2,
+          },
+        },
+      });
     },
   });
 
