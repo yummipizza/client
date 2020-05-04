@@ -1,18 +1,13 @@
 // @vendors
 import React from "react";
-import { Container, Loader, Segment, Card } from "semantic-ui-react";
-import styled from "styled-components";
+import { Loader } from "semantic-ui-react";
 import { useQuery } from "@apollo/react-hooks";
 // @queries
 import { GET_AUXILIARY_FIELDS } from "../../utilities/queries";
-
-const PizzaSection = ({ pizzaType }) => {
-  return (
-    <Segment>
-      <h4>{pizzaType.description}</h4>
-    </Segment>
-  );
-};
+// @components
+import PizzaGroup from "./Menu/PizzaGroup";
+// @styles
+import { HomeWrapper } from "./styles";
 
 const Home = () => {
   const { loading, data } = useQuery(GET_AUXILIARY_FIELDS, {
@@ -22,11 +17,11 @@ const Home = () => {
   if (loading) return <Loader active />;
 
   return (
-    <div>
+    <HomeWrapper>
       {data.getAuxiliaryFieldByFieldTypes.map((item) => (
-        <PizzaSection key={item.id} pizzaType={item} />
+        <PizzaGroup key={item.id} pizzaType={item} />
       ))}
-    </div>
+    </HomeWrapper>
   );
 };
 
