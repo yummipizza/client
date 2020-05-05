@@ -10,7 +10,7 @@ import { Wrapper, FormWrapper } from "./styles";
 // @utilities
 import { useCart } from "../../utilities/hooks/useCart";
 // @queries
-import { CREATE_ORDER } from "../../utilities/queries";
+import { CREATE_ORDER, GET_ORDERS_BY_EMAIL } from "../../utilities/queries";
 
 let validationSchema = yup.object().shape({
   fullName: yup.string().trim().required(),
@@ -47,11 +47,23 @@ const Client = () => {
             })),
           },
         },
+        update: (cache, { data: { createOrder } }) => {
+          const queryConfig = {
+            query: GET_ORDERS_BY_EMAIL,
+            variables: { email: clientInfo.email },
+          };
+
+          const data = cache.readQuery(queryConfig);
+
+          data.getOrdersByClientEmail.push(createOrder);
+
+          cache.writeQuery(queryConfig, { data });
+        },
       });
 
       deleteOrder();
       localStorage.setItem("client", JSON.stringify(clientInfo));
-      history.push("/ordes-history");
+      history.push("/orders-history");
     },
   });
 
