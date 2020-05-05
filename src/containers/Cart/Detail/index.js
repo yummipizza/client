@@ -96,8 +96,9 @@ const CartDetail = () => {
                 labelPosition="left"
                 positive
                 size="small"
+                onClick={() => history.push("/client-info")}
               >
-                <Icon name="cart" /> Place Order
+                <Icon name="cart" /> Add contact information
               </Button>
               <Button
                 floated="right"
