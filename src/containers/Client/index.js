@@ -1,9 +1,8 @@
 // @vendors
 import React from "react";
-import { Divider } from "semantic-ui-react";
+import { Divider, Form } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Form } from "semantic-ui-react";
 import { Redirect, useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 // @styles
@@ -52,7 +51,7 @@ const Client = () => {
 
       deleteOrder();
       localStorage.setItem("client", JSON.stringify(clientInfo));
-      history.push("/");
+      history.push("/ordes-history");
     },
   });
 
