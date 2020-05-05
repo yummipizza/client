@@ -12,6 +12,7 @@
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
+    "express": "^4.17.1",
     "formik": "^2.1.4",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
@@ -28,6 +29,7 @@
   },
   "scripts": {
     "start:dev": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
