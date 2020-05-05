@@ -10,6 +10,7 @@ import Cart from "./Cart";
 import Client from "./Client";
 import OrdersHistory from "./OrdersHistory";
 import OrderDetail from "./OrderDetail";
+import NotFound from "../components/NotFound";
 // @utilities
 import { ProvideCart } from "../utilities/hooks/useCart";
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/client-info" component={Client} />
           <Route path="/orders-history/:orderId" component={OrderDetail} />
           <Route path="/orders-history" component={OrdersHistory} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Layout>
     </ProvideCart>
