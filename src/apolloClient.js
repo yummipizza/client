@@ -5,7 +5,6 @@ import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
 // @utilities
 import { API } from "./config";
-import { typeDefs, resolvers } from "./utilities/queries/cart";
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -24,8 +23,6 @@ const client = new ApolloClient({
     }),
   ]),
   cache: new InMemoryCache(),
-  typeDefs,
-  resolvers,
 });
 
 export default client;

@@ -7,17 +7,21 @@ import Home from "./Home";
 import SelectPizza from "./SelectPizza";
 import SelectDrink from "./SelectDrink";
 import Cart from "./Cart";
+// @utilities
+import { ProvideCart } from "../utilities/hooks/useCart";
 
 const App = () => {
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/select-pizza/:pizzaId" component={SelectPizza} />
-        <Route path="/select-drink" component={SelectDrink} />
-        <Route path="/my-cart" component={Cart} />
-      </Switch>
-    </Layout>
+    <ProvideCart>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/select-pizza/:pizzaId" component={SelectPizza} />
+          <Route path="/select-drink" component={SelectDrink} />
+          <Route path="/my-cart" component={Cart} />
+        </Switch>
+      </Layout>
+    </ProvideCart>
   );
 };
 

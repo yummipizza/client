@@ -1,12 +1,21 @@
 // @vendors
 import React from "react";
-import { Container, Icon, Menu } from "semantic-ui-react";
+import { Container, Icon, Menu, Label } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 // @styles
 import { Logo, StyledContainer } from "./styles";
+// @utilities
+import { useCart } from "../../utilities/hooks/useCart";
 
 const Layout = ({ children }) => {
   const history = useHistory();
+  const { cart } = useCart();
+
+  let totalItems;
+
+  if (cart) {
+    totalItems = cart.items.length;
+  }
 
   return (
     <StyledContainer>
@@ -20,7 +29,8 @@ const Layout = ({ children }) => {
             onClick={() => history.push("/orders-history")}
           />
           <Menu.Item name="logout" onClick={() => history.push("/my-cart")}>
-            <Icon name="shopping cart" /> My Cart
+            <Icon name="shopping cart" /> My Cart{" "}
+            {totalItems && <Label color="teal">{totalItems}</Label>}
           </Menu.Item>
         </Menu.Menu>
       </Menu>

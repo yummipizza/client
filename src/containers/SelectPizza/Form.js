@@ -3,14 +3,13 @@ import React from "react";
 import { Form, Statistic, Icon } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useMutation, useQuery } from "@apollo/react-hooks";
 import { useHistory } from "react-router-dom";
 // @styles
 import { PriceContainer, MoneySymbol } from "./styles";
-// @queries
-import { START_ORDER, GET_CART, ADD_CART_ITEM } from "../../utilities/queries";
 // @constants
 import { DELIVERY_COST, DOLAR_COST } from "../../utilities/constants";
+// @utilities
+import { useCart } from "../../utilities/hooks/useCart";
 
 let validationSchema = yup.object().shape({
   selectedPizzaSize: yup.number().required(),
@@ -18,11 +17,8 @@ let validationSchema = yup.object().shape({
 });
 
 const SelectPizzaForm = ({ pizza }) => {
-  const [startOrder] = useMutation(START_ORDER);
-  const [addCartItem] = useMutation(ADD_CART_ITEM);
   const history = useHistory();
-
-  const { data } = useQuery(GET_CART);
+  const { cart, addCartItem, startOrder } = useCart();
 
   const formik = useFormik({
     initialValues: {
@@ -40,17 +36,15 @@ const SelectPizzaForm = ({ pizza }) => {
         price: selectedSize.price,
       };
 
-      if (data && data.Cart) {
-        addCartItem({ variables: { cartItem } });
+      if (cart) {
+        addCartItem(cartItem);
       } else {
-        startOrder({
-          variables: {
-            cart: {
-              deliveryCost: DELIVERY_COST,
-            },
-            cartItem,
+        startOrder(
+          {
+            deliveryCost: DELIVERY_COST,
           },
-        });
+          cartItem
+        );
       }
 
       history.push("/select-drink");
