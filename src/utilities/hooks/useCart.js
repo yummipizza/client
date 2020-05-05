@@ -55,9 +55,37 @@ function useProvideCart() {
     }
   }
 
+  function deleteOrder() {
+    setCart(null);
+  }
+
+  function removeProductFromCart(productToRemove) {
+    const cartItems = [...cart.items];
+
+    const newCartItems = cartItems.filter(
+      (item) =>
+        item.productId !== productToRemove.productId &&
+        item.sizeId !== productToRemove.sizeId
+    );
+
+    if (newCartItems.length === 0) {
+      return deleteOrder();
+    }
+
+    const total = calculateTotal(newCartItems);
+
+    setCart({
+      ...cart,
+      total,
+      items: newCartItems,
+    });
+  }
+
   return {
     cart,
     addCartItem,
     startOrder,
+    deleteOrder,
+    removeProductFromCart,
   };
 }

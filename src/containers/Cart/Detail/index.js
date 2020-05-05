@@ -1,6 +1,6 @@
 // @vendors
-import React from "react";
-import { Table, Button, Icon } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Table, Button, Icon, Modal } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 // @utilities
 import { useCart } from "../../../utilities/hooks/useCart";
@@ -8,8 +8,18 @@ import { useCart } from "../../../utilities/hooks/useCart";
 import { DOLAR_COST } from "../../../utilities/constants";
 
 const CartDetail = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const history = useHistory();
-  const { cart } = useCart();
+  const { cart, deleteOrder, removeProductFromCart } = useCart();
+
+  const toggleModal = () => {
+    setModalOpen((prevModalOpen) => !prevModalOpen);
+  };
+
+  const clearOrder = () => {
+    deleteOrder();
+    toggleModal();
+  };
 
   if (!cart) {
     return <p>Your cart is empty</p>;
@@ -40,7 +50,11 @@ const CartDetail = () => {
               <Table.Cell>{item.price}</Table.Cell>
               <Table.Cell>{item.quantity * item.price}</Table.Cell>
               <Table.Cell>
-                <Button basic color="red">
+                <Button
+                  basic
+                  color="red"
+                  onClick={() => removeProductFromCart(item)}
+                >
                   <Icon name="remove" /> Remove
                 </Button>
               </Table.Cell>
@@ -85,7 +99,12 @@ const CartDetail = () => {
               >
                 <Icon name="cart" /> Place Order
               </Button>
-              <Button floated="right" negative size="small">
+              <Button
+                floated="right"
+                negative
+                size="small"
+                onClick={toggleModal}
+              >
                 Cancel Order
               </Button>
               <Button
@@ -101,6 +120,22 @@ const CartDetail = () => {
           </Table.Row>
         </Table.Footer>
       </Table>
+      <Modal open={modalOpen} onClose={toggleModal} size="mini">
+        <Modal.Header content="Clear your order" />
+        <Modal.Content>
+          <p>Are you sure clear your order?</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button negative onClick={toggleModal} content="No" />
+          <Button
+            positive
+            icon="checkmark"
+            labelPosition="right"
+            content="Yes"
+            onClick={clearOrder}
+          />
+        </Modal.Actions>
+      </Modal>
     </div>
   );
 };

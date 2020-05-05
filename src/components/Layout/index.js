@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
 
   let totalItems;
 
-  if (cart) {
+  if (cart && cart.items.length > 0) {
     totalItems = cart.items.length;
   }
 
