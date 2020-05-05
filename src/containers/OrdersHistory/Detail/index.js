@@ -5,15 +5,13 @@ import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import moment from "moment";
 // @queries
-import { GET_ORDER_BY_EMAIL } from "../../../utilities/queries";
+import { GET_ORDERS_BY_EMAIL } from "../../../utilities/queries";
 
 const OrderTable = ({ clientInfo }) => {
   const history = useHistory();
-
-  console.log(history);
   const client = JSON.parse(clientInfo);
 
-  const { loading, data } = useQuery(GET_ORDER_BY_EMAIL, {
+  const { loading, data } = useQuery(GET_ORDERS_BY_EMAIL, {
     variables: {
       email: client.email,
     },

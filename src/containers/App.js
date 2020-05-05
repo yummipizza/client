@@ -9,6 +9,7 @@ import SelectDrink from "./SelectDrink";
 import Cart from "./Cart";
 import Client from "./Client";
 import OrdersHistory from "./OrdersHistory";
+import OrderDetail from "./OrderDetail";
 // @utilities
 import { ProvideCart } from "../utilities/hooks/useCart";
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/select-drink" component={SelectDrink} />
           <Route path="/my-cart" component={Cart} />
           <Route path="/client-info" component={Client} />
+          <Route path="/orders-history/:orderId" component={OrderDetail} />
           <Route path="/orders-history" component={OrdersHistory} />
         </Switch>
       </Layout>

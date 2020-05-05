@@ -16,7 +16,12 @@ export const ORDER_DETAIL_FRAGMENT = gql`
     id
     quantity
     product {
+      name
       description
+    }
+    productSize {
+      description
+      price
     }
   }
   ${ORDER_FRAGMENT}
@@ -35,9 +40,22 @@ export const CREATE_ORDER = gql`
   ${ORDER_DETAIL_FRAGMENT}
 `;
 
-export const GET_ORDER_BY_EMAIL = gql`
+export const GET_ORDERS_BY_EMAIL = gql`
   query getOrdersByClientEmail($email: String!) {
     getOrdersByClientEmail(email: $email) {
+      ...OrderFragment
+      detail {
+        ...OrderDetailFragment
+      }
+    }
+  }
+  ${ORDER_FRAGMENT}
+  ${ORDER_DETAIL_FRAGMENT}
+`;
+
+export const GET_ORDER_BY_ID = gql`
+  query getOrderById($id: ID!) {
+    getOrderById(id: $id) {
       ...OrderFragment
       detail {
         ...OrderDetailFragment
