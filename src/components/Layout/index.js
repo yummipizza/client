@@ -35,6 +35,11 @@ const Layout = ({ children }) => {
         </Menu.Menu>
       </Menu>
       <Container>{children}</Container>
+      <p
+        style={{ textAlign: "center", marginTop: "100px", fontWeight: "bold" }}
+      >
+        All rights reserved <Icon name="copyright" /> 2020 Yummi Pizza
+      </p>
     </StyledContainer>
   );
 };
