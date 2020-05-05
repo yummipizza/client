@@ -38,7 +38,8 @@ const Layout = ({ children }) => {
       <p
         style={{ textAlign: "center", marginTop: "100px", fontWeight: "bold" }}
       >
-        All rights reserved <Icon name="copyright" /> 2020 Yummi Pizza
+        All rights reserved <Icon name="copyright" /> {new Date().getFullYear()}{" "}
+        Yummi Pizza
       </p>
     </StyledContainer>
   );
