@@ -24,12 +24,14 @@ const PizzaCard = ({ typeId }) => {
             <Image src={pizza.image} />
           </Card.Content>
           <Card.Content extra textAlign="center">
-            <Button
-              color="secondary"
-              onClick={() => history.push(`/select-pizza/${pizza.id}`)}
-            >
-              <Icon name="plus" /> Select
-            </Button>
+            <div className="ui two buttons">
+              <Button
+                color="secondary"
+                onClick={() => history.push(`/select-pizza/${pizza.id}`)}
+              >
+                <Icon name="plus" /> Select
+              </Button>
+            </div>
           </Card.Content>
         </Card>
       ))}

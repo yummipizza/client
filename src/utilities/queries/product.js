@@ -9,7 +9,15 @@ export const PRODUCT_FRAGMENT = gql`
     name
     image
     description
+    sizes {
+      ...productSizeFragment
+      size {
+        ...auxiliaryFieldFragment
+      }
+    }
   }
+  ${PRODUCT_SIZE_FRAGMENT}
+  ${AUXILIARY_FIELD_FRAGMENT}
 `;
 
 export const GET_PRODUCTS_BY_TYPE = gql`
@@ -25,15 +33,7 @@ export const GET_PRODUCT_BY_ID = gql`
   query getProductById($id: ID!) {
     getProductById(id: $id) {
       ...productFragment
-      sizes {
-        ...productSizeFragment
-        size {
-          ...auxiliaryFieldFragment
-        }
-      }
     }
   }
   ${PRODUCT_FRAGMENT}
-  ${PRODUCT_SIZE_FRAGMENT}
-  ${AUXILIARY_FIELD_FRAGMENT}
 `;
