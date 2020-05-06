@@ -19,3 +19,7 @@ Stack Frontend:
 - Graphql
 
 NOTE: The backend is using the library **convic** to share the environment variables between the development and testing, for the production environment, it takes those variables from heroku config.
+
+---
+
+For local environment, copy and paste .env_example and rename it with .env
